@@ -8,17 +8,28 @@ public class TicketQueueManager {
         Integer count = IO.readInt(input, "Number of customers: ");
         if (count == null) { input.close(); return; }
         if (count <= 0) { IO.println("Invalid number of customers."); input.close(); return; }
-        for (int i = 0; i < count; i++) { IO.print("Customer " + (i + 1) + ": "); queue.add(input.nextLine()); }
+        for (int i = 0; i < count; i++) {
+            String value = IO.readLine(input, "Customer " + (i + 1) + ": ");
+            if (value == null) { input.close(); return; }
+            queue.add(value);
+        }
         Integer choice;
         do {
             IO.println("\n1. Add Customer\n2. Serve Customer\n3. View Next Customer\n4. Search Customer\n5. Display All Customers\n6. Display Queue Statistics\n7. Exit");
             choice = IO.readInt(input, "Choice: ");
             if (choice == null) break;
             switch (choice) {
-                case 1: IO.print("Customer name: "); queue.add(input.nextLine()); IO.println("Customer added successfully."); break;
+                case 1:
+                    String addedValue = IO.readLine(input, "Customer name: ");
+                    if (addedValue == null) { input.close(); return; }
+                    queue.add(addedValue);
+                    IO.println("Customer added successfully."); break;
                 case 2: IO.println(queue.isEmpty() ? "Queue is empty." : "Served customer: " + queue.remove()); break;
                 case 3: IO.println(queue.isEmpty() ? "Queue is empty." : "Next customer: " + queue.element()); break;
-                case 4: IO.print("Customer name: "); IO.println(queue.contains(input.nextLine()) ? "Customer found in queue." : "Customer not found."); break;
+                case 4:
+                    String searchedValue = IO.readLine(input, "Customer name: ");
+                    if (searchedValue == null) { input.close(); return; }
+                    IO.println(queue.contains(searchedValue) ? "Customer found in queue." : "Customer not found."); break;
                 case 5: if (queue.isEmpty()) IO.println("Queue is empty."); else for (String item : queue) IO.println(item); break;
                 case 6:
                     String last = "None";

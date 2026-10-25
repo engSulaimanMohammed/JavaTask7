@@ -6,7 +6,11 @@ public class StudentNameManager {
         if (count == null) { input.close(); return; }
         if (count <= 0) { IO.println("Invalid number of students."); input.close(); return; }
         String[] names = new String[count];
-        for (int i = 0; i < count; i++) { IO.print("Student " + (i + 1) + ": "); names[i] = input.nextLine(); }
+        for (int i = 0; i < count; i++) {
+            String name = IO.readLine(input, "Student " + (i + 1) + ": ");
+            if (name == null) { input.close(); return; }
+            names[i] = name;
+        }
         Integer choice;
         do {
             IO.println("\n1. Add Student Name\n2. Search Student Name\n3. Update Student Name\n4. Display All Student Names\n5. Analyze Names\n6. Compare Two Names\n7. Exit");
@@ -14,20 +18,24 @@ public class StudentNameManager {
             if (choice == null) break;
             switch (choice) {
                 case 1:
-                    IO.print("New name: "); String added = input.nextLine();
+                    String added = IO.readLine(input, "New name: ");
+                    if (added == null) { input.close(); return; }
                     boolean duplicate = false;
                     for (int i = 0; i < count; i++) if (names[i].equals(added)) duplicate = true;
                     if (duplicate) IO.println("Student name already exists.");
                     else { String[] expanded = new String[count + 1]; for (int i = 0; i < count; i++) expanded[i] = names[i]; expanded[count++] = added; names = expanded; IO.println("Student name added successfully."); }
                     break;
                 case 2:
-                    IO.print("Search name: "); String search = input.nextLine();
+                    String search = IO.readLine(input, "Search name: ");
+                    if (search == null) { input.close(); return; }
                     boolean found = false;
                     for (int i = 0; i < count; i++) if (names[i].equals(search)) found = true;
                     IO.println(found ? "Student found." : "Student not found."); break;
                 case 3:
-                    IO.print("Existing name: "); String oldName = input.nextLine();
-                    IO.print("New name: "); String newName = input.nextLine();
+                    String oldName = IO.readLine(input, "Existing name: ");
+                    if (oldName == null) { input.close(); return; }
+                    String newName = IO.readLine(input, "New name: ");
+                    if (newName == null) { input.close(); return; }
                     int index = -1; boolean exists = false;
                     for (int i = 0; i < count; i++) { if (names[i].equals(oldName)) index = i; if (names[i].equals(newName)) exists = true; }
                     if (index < 0) IO.println("Student not found.");
@@ -48,8 +56,10 @@ public class StudentNameManager {
                     IO.println("Students: " + count + "\nLongest: " + longest + "\nShortest: " + shortest + "\nCharacters: " + total + "\nAverage: " + ((double) total / count) + "\nStarting with A: " + startsA + "\nEnding with a: " + endsA);
                     break;
                 case 6:
-                    IO.print("First name: "); String first = input.nextLine();
-                    IO.print("Second name: "); String second = input.nextLine();
+                    String first = IO.readLine(input, "First name: ");
+                    if (first == null) { input.close(); return; }
+                    String second = IO.readLine(input, "Second name: ");
+                    if (second == null) { input.close(); return; }
                     IO.println("equals: " + first.equals(second) + "\nequalsIgnoreCase: " + first.equalsIgnoreCase(second) + "\ncompareTo: " + first.compareTo(second));
                     IO.println("First uppercase: " + first.toUpperCase() + "\nSecond lowercase: " + second.toLowerCase());
                     if (!first.isEmpty()) IO.println("First character: " + first.charAt(0) + "\nFirst substring: " + first.substring(0, 1));

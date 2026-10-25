@@ -2,7 +2,8 @@ import java.util.Scanner;
 public class PasswordStrengthChecker {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        IO.print("Enter password: "); String password = input.nextLine();
+        String password = IO.readLine(input, "Enter password: ");
+        if (password == null) { input.close(); return; }
         if (password.length() <= 0) IO.println("Invalid password.");
         Integer choice;
         do {
@@ -12,7 +13,8 @@ public class PasswordStrengthChecker {
             if (choice >= 2 && choice <= 6 && password.isEmpty()) { IO.println("Invalid password."); continue; }
             switch (choice) {
                 case 1:
-                    IO.print("Enter password: "); password = input.nextLine();
+                    password = IO.readLine(input, "Enter password: ");
+                    if (password == null) { input.close(); return; }
                     IO.println(password.isEmpty() ? "Invalid password." : "Password saved successfully."); break;
                 case 2:
                     IO.println("Password length: " + password.length());
