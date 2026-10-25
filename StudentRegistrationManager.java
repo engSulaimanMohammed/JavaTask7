@@ -7,13 +7,15 @@ public class StudentRegistrationManager {
         Scanner input = new Scanner(System.in);
         Queue<String> waiting = new LinkedList<>();
         Stack<String> completed = new Stack<>();
-        IO.print("Number of students: "); int count = Integer.parseInt(input.nextLine());
+        Integer count = IO.readInt(input, "Number of students: ");
+        if (count == null) { input.close(); return; }
         if (count <= 0) { IO.println("Invalid number of students."); input.close(); return; }
         for (int i = 0; i < count; i++) { IO.print("Student " + (i + 1) + ": "); waiting.add(input.nextLine()); }
-        int choice;
+        Integer choice;
         do {
             IO.println("\n1. Add Student to Queue\n2. Process Student Registration\n3. View Next Student\n4. Undo Last Registration\n5. Search Student\n6. Display Waiting Students\n7. Display Registered Students\n8. Display Statistics\n9. Exit");
-            IO.print("Choice: "); choice = Integer.parseInt(input.nextLine());
+            choice = IO.readInt(input, "Choice: ");
+            if (choice == null) break;
             switch (choice) {
                 case 1: IO.print("Student name: "); waiting.add(input.nextLine()); IO.println("Student added to registration queue successfully."); break;
                 case 2:
