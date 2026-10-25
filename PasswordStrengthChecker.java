@@ -13,9 +13,11 @@ public class PasswordStrengthChecker {
             if (choice >= 2 && choice <= 6 && password.isEmpty()) { IO.println("Invalid password."); continue; }
             switch (choice) {
                 case 1:
-                    password = IO.readLine(input, "Enter password: ");
-                    if (password == null) { input.close(); return; }
-                    IO.println(password.isEmpty() ? "Invalid password." : "Password saved successfully."); break;
+                    String replacement = IO.readLine(input, "Enter password: ");
+                    if (replacement == null) { input.close(); return; }
+                    if (replacement.isEmpty()) IO.println("Invalid password.");
+                    else { password = replacement; IO.println("Password saved successfully."); }
+                    break;
                 case 2:
                     IO.println("Password length: " + password.length());
                     IO.println(password.length() < 8 ? "Password is too short." : "Password length is acceptable."); break;
