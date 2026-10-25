@@ -4,10 +4,11 @@ public class PasswordStrengthChecker {
         Scanner input = new Scanner(System.in);
         IO.print("Enter password: "); String password = input.nextLine();
         if (password.length() <= 0) IO.println("Invalid password.");
-        int choice;
+        Integer choice;
         do {
             IO.println("\n1. Enter Password\n2. Check Password Length\n3. Analyze Password Characters\n4. Check Password Strength\n5. Convert Password Format\n6. Display Password Report\n7. Exit");
-            IO.print("Choice: "); choice = Integer.parseInt(input.nextLine());
+            choice = IO.readInt(input, "Choice: ");
+            if (choice == null) break;
             if (choice >= 2 && choice <= 6 && password.isEmpty()) { IO.println("Invalid password."); continue; }
             switch (choice) {
                 case 1:
