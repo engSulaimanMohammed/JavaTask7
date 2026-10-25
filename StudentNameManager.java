@@ -2,15 +2,16 @@ import java.util.Scanner;
 public class StudentNameManager {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        IO.print("Number of students: ");
-        int count = Integer.parseInt(input.nextLine());
+        Integer count = IO.readInt(input, "Number of students: ");
+        if (count == null) { input.close(); return; }
         if (count <= 0) { IO.println("Invalid number of students."); input.close(); return; }
         String[] names = new String[count];
         for (int i = 0; i < count; i++) { IO.print("Student " + (i + 1) + ": "); names[i] = input.nextLine(); }
-        int choice;
+        Integer choice;
         do {
             IO.println("\n1. Add Student Name\n2. Search Student Name\n3. Update Student Name\n4. Display All Student Names\n5. Analyze Names\n6. Compare Two Names\n7. Exit");
-            IO.print("Choice: "); choice = Integer.parseInt(input.nextLine());
+            choice = IO.readInt(input, "Choice: ");
+            if (choice == null) break;
             switch (choice) {
                 case 1:
                     IO.print("New name: "); String added = input.nextLine();
