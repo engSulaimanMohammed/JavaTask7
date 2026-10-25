@@ -6,10 +6,13 @@ public class StudentNameManager {
         if (count == null) { input.close(); return; }
         if (count <= 0) { IO.println("Invalid number of students."); input.close(); return; }
         String[] names = new String[count];
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < count;) {
             String name = IO.readLine(input, "Student " + (i + 1) + ": ");
             if (name == null) { input.close(); return; }
-            names[i] = name;
+            boolean duplicate = false;
+            for (int j = 0; j < i; j++) if (names[j].equals(name)) duplicate = true;
+            if (duplicate) IO.println("Student name already exists.");
+            else { names[i] = name; i++; }
         }
         Integer choice;
         do {
