@@ -5,13 +5,15 @@ public class CustomerQueueManager {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         Queue<String> queue = new LinkedList<>();
-        IO.print("Number of customers: "); int count = Integer.parseInt(input.nextLine());
+        Integer count = IO.readInt(input, "Number of customers: ");
+        if (count == null) { input.close(); return; }
         if (count <= 0) { IO.println("Invalid number of customers."); input.close(); return; }
         for (int i = 0; i < count; i++) { IO.print("Customer " + (i + 1) + ": "); queue.offer(input.nextLine()); }
-        int choice;
+        Integer choice;
         do {
             IO.println("\n1. Add Customer\n2. Serve Customer\n3. View Next Customer\n4. Search Customer\n5. Display All Customers\n6. Display Queue Statistics\n7. Exit");
-            IO.print("Choice: "); choice = Integer.parseInt(input.nextLine());
+            choice = IO.readInt(input, "Choice: ");
+            if (choice == null) break;
             switch (choice) {
                 case 1: IO.print("Customer name: "); queue.offer(input.nextLine()); IO.println("Customer added successfully."); break;
                 case 2: IO.println(queue.isEmpty() ? "No customers in the queue." : "Served customer: " + queue.poll()); break;
