@@ -4,13 +4,15 @@ public class BookStackManager {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         Stack<String> books = new Stack<>();
-        IO.print("Number of books: "); int count = Integer.parseInt(input.nextLine());
+        Integer count = IO.readInt(input, "Number of books: ");
+        if (count == null) { input.close(); return; }
         if (count <= 0) { IO.println("Invalid number of books."); input.close(); return; }
         for (int i = 0; i < count; i++) { IO.print("Book " + (i + 1) + ": "); books.push(input.nextLine()); }
-        int choice;
+        Integer choice;
         do {
             IO.println("\n1. Add Book\n2. Remove Top Book\n3. View Top Book\n4. Search Book\n5. Display All Books\n6. Display Stack Statistics\n7. Exit");
-            IO.print("Choice: "); choice = Integer.parseInt(input.nextLine());
+            choice = IO.readInt(input, "Choice: ");
+            if (choice == null) break;
             switch (choice) {
                 case 1: IO.print("Book title: "); books.push(input.nextLine()); IO.println("Book added successfully."); break;
                 case 2: IO.println(books.isEmpty() ? "No books available." : "Removed book: " + books.pop()); break;
