@@ -4,15 +4,25 @@ public class NumberStackAnalyzer {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         Stack<Integer> numbers = new Stack<>();
-        IO.print("Number of values: "); int count = Integer.parseInt(input.nextLine());
+        Integer count = IO.readInt(input, "Number of values: ");
+        if (count == null) { input.close(); return; }
         if (count <= 0) { IO.println("Invalid number of values."); input.close(); return; }
-        for (int i = 0; i < count; i++) { IO.print("Number " + (i + 1) + ": "); numbers.push(Integer.parseInt(input.nextLine())); }
-        int choice;
+        for (int i = 0; i < count; i++) {
+            Integer number = IO.readInt(input, "Number " + (i + 1) + ": ");
+            if (number == null) { input.close(); return; }
+            numbers.push(number);
+        }
+        Integer choice;
         do {
             IO.println("\n1. Add Number\n2. Remove Top Number\n3. View Top Number\n4. Display All Numbers\n5. Analyze Numbers\n6. Exit");
-            IO.print("Choice: "); choice = Integer.parseInt(input.nextLine());
+            choice = IO.readInt(input, "Choice: ");
+            if (choice == null) break;
             switch (choice) {
-                case 1: IO.print("Number: "); numbers.push(Integer.parseInt(input.nextLine())); IO.println("Number added successfully."); break;
+                case 1:
+                    Integer addedNumber = IO.readInt(input, "Number: ");
+                    if (addedNumber == null) { input.close(); return; }
+                    numbers.push(addedNumber);
+                    IO.println("Number added successfully."); break;
                 case 2: IO.println(numbers.isEmpty() ? "Stack is empty." : "Removed: " + numbers.pop()); break;
                 case 3: IO.println(numbers.isEmpty() ? "Stack is empty." : "Top number: " + numbers.peek()); break;
                 case 4: if (numbers.isEmpty()) IO.println("Stack is empty."); else for (int number : numbers) IO.println(number); break;
