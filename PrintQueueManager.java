@@ -5,13 +5,15 @@ public class PrintQueueManager {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         Queue<String> queue = new LinkedList<>();
-        IO.print("Number of print jobs: "); int count = Integer.parseInt(input.nextLine());
+        Integer count = IO.readInt(input, "Number of print jobs: ");
+        if (count == null) { input.close(); return; }
         if (count <= 0) { IO.println("Invalid number of print jobs."); input.close(); return; }
         for (int i = 0; i < count; i++) { IO.print("Print job " + (i + 1) + ": "); queue.offer(input.nextLine()); }
-        int choice;
+        Integer choice;
         do {
             IO.println("\n1. Add Print Job\n2. Process Next Print Job\n3. View Next Print Job\n4. Search Print Job\n5. Remove Print Job\n6. Display All Print Jobs\n7. Display Queue Statistics\n8. Exit");
-            IO.print("Choice: "); choice = Integer.parseInt(input.nextLine());
+            choice = IO.readInt(input, "Choice: ");
+            if (choice == null) break;
             switch (choice) {
                 case 1: IO.print("Print job name: "); queue.offer(input.nextLine()); IO.println("Print job added successfully."); break;
                 case 2: IO.println(queue.isEmpty() ? "No print jobs in the queue." : "Processed print job: " + queue.poll()); break;
