@@ -7,13 +7,15 @@ public class HospitalPatientManager {
         Scanner input = new Scanner(System.in);
         Queue<String> waiting = new LinkedList<>();
         Stack<String> completed = new Stack<>();
-        IO.print("Number of patients: "); int count = Integer.parseInt(input.nextLine());
+        Integer count = IO.readInt(input, "Number of patients: ");
+        if (count == null) { input.close(); return; }
         if (count <= 0) { IO.println("Invalid number of patients."); input.close(); return; }
         for (int i = 0; i < count; i++) { IO.print("Patient " + (i + 1) + ": "); waiting.offer(input.nextLine()); }
-        int choice;
+        Integer choice;
         do {
             IO.println("\n1. Add Patient\n2. Treat Patient\n3. View Next Patient\n4. Undo Last Treatment\n5. Search Patient\n6. Display Waiting Patients\n7. Display Treated Patients\n8. Display Hospital Statistics\n9. Exit");
-            IO.print("Choice: "); choice = Integer.parseInt(input.nextLine());
+            choice = IO.readInt(input, "Choice: ");
+            if (choice == null) break;
             switch (choice) {
                 case 1: IO.print("Patient name: "); waiting.offer(input.nextLine()); IO.println("Patient added successfully."); break;
                 case 2:
