@@ -4,13 +4,15 @@ public class UndoActionManager {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         Stack<String> actions = new Stack<>();
-        IO.print("Number of actions: "); int count = Integer.parseInt(input.nextLine());
+        Integer count = IO.readInt(input, "Number of actions: ");
+        if (count == null) { input.close(); return; }
         if (count <= 0) { IO.println("Invalid number of actions."); input.close(); return; }
         for (int i = 0; i < count; i++) { IO.print("Action " + (i + 1) + ": "); actions.push(input.nextLine()); }
-        int choice;
+        Integer choice;
         do {
             IO.println("\n1. Add Action\n2. Undo Last Action\n3. View Last Action\n4. Search Action\n5. Display All Actions\n6. Display Action Statistics\n7. Clear All Actions\n8. Exit");
-            IO.print("Choice: "); choice = Integer.parseInt(input.nextLine());
+            choice = IO.readInt(input, "Choice: ");
+            if (choice == null) break;
             switch (choice) {
                 case 1: IO.print("Action: "); actions.push(input.nextLine()); IO.println("Action added successfully."); break;
                 case 2: IO.println(actions.isEmpty() ? "No actions to undo." : "Undone: " + actions.pop()); break;
